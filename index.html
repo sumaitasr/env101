@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>env101-project</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            position: relative;
+            background-color: #FFF8F0;
+            background-image: url('fall.png');
+            background-repeat: repeat;
+            background-size: contain;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .falling-leaves {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+        .navbar {
+            background-color: #DAA520;
+            justify-content: center;
+            color: green;
+        }
+        .navbar-brand {
+            font-family: 'Dancing Script', cursive;
+            font-size: 30px;
+            color: green;
+        }
+        .list-group-item {
+            color: #654321;
+            background-color: #F4A460;
+        }
+        .content-section {
+            padding: 20px;
+            margin-top: 20px;
+            background-color: #FFFFF0;
+            border: 1px outset #B8860B;
+            border-radius: 4px;
+        }
+        h4 {
+            font-family: 'Montserrat', sans-serif;
+            color: #A0522D;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <a class="navbar-brand" href="#">Tree Huggers</a>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="list-group">
+                    <a href="#introduction" class="list-group-item list-group-item-action">Introduction</a>
+                    <a href="#value" class="list-group-item list-group-item-action">Value of Participatory Science</a>
+                    <a href="#importance" class="list-group-item list-group-item-action">Importance</a>
+                    <a href="#methods" class="list-group-item list-group-item-action">Data Collection Methods</a>
+                    <a href="#findings" class="list-group-item list-group-item-action">Findings</a>
+                    <a href="#conclusion" class="list-group-item list-group-item-action">Conclusion</a>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div id="introduction" class="content-section">
+                    <h4>Introduction</h4>
+                    <p>Introduction of the project</p>
+                </div>
+                <div id="value" class="content-section">
+                    <h4>The Value of Participatory Science</h4>
+                    <p>placeholder to discuss the value and impact of participatory science</p>
+                </div>
+                 <div id="importance" class="content-section">
+                    <h4>The Importance of Our Project’s Topic</h4>
+                    <p>Placeholder to describe the importance of the project</p>
+                </div>
+                <div id="methods" class="content-section">
+                    <h4>Data Collection Methods</h4>
+                    <p>placeholder to explain how data was collected</p>
+                </div>
+                <div id="findings" class="content-section">
+                    <h4>Findings</h4>
+                    <p>placeholder for Detailed findings from both collected data and project data</p>
+                </div>
+                <div id="conclusion" class="content-section">
+                    <h4>Conclusion</h4>
+                    <p>placeholder for conclusion</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="falling-leaves"></div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const canvas = document.createElement('canvas');
+            document.querySelector('.falling-leaves').appendChild(canvas);
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            let leaves = [];
+            const numberOfLeaves = 100;
+
+            function createLeaves() {
+                for (let i = 0; i < numberOfLeaves; i++) {
+                    leaves.push({
+                        x: Math.random() * canvas.width,
+                        y: Math.random() * canvas.height,
+                        size: Math.random() * 5 + 2,
+                        weight: Math.random() * 2 + 1,
+                        angle: Math.random() * 360,
+                    });
+                }
+            }
+
+            function drawLeaf(leaf) {
+                ctx.fillStyle = 'rgba(255, 104, 0, 0.7)';
+                ctx.beginPath();
+                ctx.ellipse(leaf.x, leaf.y, leaf.size, leaf.size / 2, leaf.angle * Math.PI / 180, 0, 2 * Math.PI);
+                ctx.fill();
+            }
+
+            function update() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                leaves.forEach(leaf => {
+                    leaf.y += leaf.weight;
+                    leaf.angle += 1;
+                    if (leaf.y > canvas.height) {
+                        leaf.y = -leaf.size;
+                        leaf.x = Math.random() * canvas.width;
+                    }
+                    drawLeaf(leaf);
+                });
+                requestAnimationFrame(update);
+            }
+
+            createLeaves();
+            update();
+        });
+    </script>
+</body>
+</html>
